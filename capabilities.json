@@ -1,0 +1,168 @@
+{
+    "dataRoles": [{
+        "displayName": "Fields",
+        "name": "Values",
+        "kind": "Measure",
+        "description": "The fields to display"
+    }],
+    "dataViewMappings": [{
+        "conditions": [
+            { "Values": { "max": 1 } }
+        ],
+        "single": {
+            "role": "Values"
+        }
+    }],
+    "objects": {
+        "values": {
+            "displayName": "Values",
+            "properties": {
+                "color": {
+                    "displayName": "Color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+
+                },
+                "fontSize": {
+                    "displayName": "Font Size",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "fontWeight": {
+                    "displayName": "Font Weight",
+                    "type": {
+                        "enumeration": [
+                            { "value": "Normal", "displayName": "Normal" },
+                            { "value": "Medium", "displayName": "Medium" },
+                            { "value": "Bold", "displayName": "Bold" }
+                        ]
+                    }
+                },
+                "displayUnits": {
+                    "displayName": "Display units",
+                    "type": {
+                        "formatting": {
+                            "labelDisplayUnits": true
+                        }
+                    }
+                },
+                "decimalPlaces": {
+                    "displayName": "Decimal places",
+                    "type": {
+                        "numeric": true
+                    },
+                    "placeHolderText": "Auto"
+                }
+
+            }
+        },
+        "categoryLabels": {
+            "displayName": "Category label",
+            "properties": {
+                "show": {
+                    "displayName": "Category label",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "text": {
+                    "displayName": "Text",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "color": {
+                    "displayName": "Color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontSize": {
+                    "displayName": "Font Size",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "fontWeight": {
+                    "displayName": "Font Weight",
+                    "type": {
+                        "enumeration": [
+                            { "value": "Normal", "displayName": "Normal" },
+                            { "value": "Medium", "displayName": "Medium" },
+                            { "value": "Bold", "displayName": "Bold" }
+                        ]
+                    }
+                }
+            }
+        },
+        "wordWrap": {
+            "displayName": "Word wrap",
+            "properties": {
+                "show": {
+                    "displayName": "Word wrap",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "behavior": {
+            "displayName": "Look and Feel",
+            "properties": {
+                "innerColor": {
+                    "displayName": "Inner",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "showBottom": {
+                    "displayName": "Show bottom",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showRight": {
+                    "displayName": "Show right",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "outerColor": {
+                    "displayName": "Outer",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "outerWidth": {
+                    "displayName": "Outer width",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        }
+    },
+    "suppressDefaultTitle": true
+}
