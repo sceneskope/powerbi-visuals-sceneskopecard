@@ -96,11 +96,7 @@ module powerbi.extensibility.visual {
 
 
                 valueText
-                    .text(d => {
-                        const fmt = viewModel.formatter.format(d);
-                        console.log(`${d} -> ${fmt}`);
-                        return fmt;
-                    })
+                    .text(viewModel.formatter.format)
                     .style({
                         "font-size": valueFontSizePixels,
                         "font-weight": fontWeightConverter(settings.values.fontWeight),
