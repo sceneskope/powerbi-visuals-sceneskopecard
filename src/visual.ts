@@ -77,7 +77,7 @@ module powerbi.extensibility.visual {
                     .attr("height", coreHeight)
                     .attr("fill", settings.behavior.innerColor);
 
-                const valueData = [viewModel.value + ""];
+                const valueData = [viewModel.value];
                 const corePadding = 10;
 
                 const translateX = corePadding;
@@ -96,7 +96,7 @@ module powerbi.extensibility.visual {
 
 
                 valueText
-                    .text(d => d)
+                    .text(viewModel.formatter.format)
                     .style({
                         "font-size": valueFontSizePixels,
                         "font-weight": fontWeightConverter(settings.values.fontWeight),
@@ -110,7 +110,7 @@ module powerbi.extensibility.visual {
 
                 const labelData = viewModel.label ? [viewModel.label] : [];
                 const labelFontSizePixels = PixelConverter.fromPointToPixel(settings.categoryLabels.fontSize);
-                const labelTranslateY = coreHeight - outerWidth - labelFontSizePixels;
+                const labelTranslateY = coreHeight - labelFontSizePixels;
                 const labelText =
                     this.labelElement
                         .attr("transform", svgutils.translate(translateX, labelTranslateY))

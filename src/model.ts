@@ -1,8 +1,11 @@
 module powerbi.extensibility.visual {
+    import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
+    import IValueFormatter = powerbi.extensibility.utils.formatting.IValueFormatter;
     export interface ViewModel {
         value: PrimitiveValue;
         label: string | undefined;
         settings: Settings;
+        formatter: IValueFormatter;
     }
 
     export function visualTransform(options: VisualUpdateOptions, host: IVisualHost): ViewModel {
@@ -14,7 +17,8 @@ module powerbi.extensibility.visual {
             return {
                 value: "",
                 label: undefined,
-                settings: Settings.getDefault() as Settings
+                settings: Settings.getDefault() as Settings,
+                formatter: valueFormatter.create({})
             };
         }
 
@@ -40,10 +44,16 @@ module powerbi.extensibility.visual {
             label = undefined;
         }
 
+        const column = dataView.metadata.columns[0];
+        const formatter = valueFormatter.create({
+            format: valueFormatter.getFormatStringByColumn(column)
+        });
+
         return {
             settings: settings,
             label: label,
-            value: value
+            value: value,
+            formatter: formatter
         };
 
     }
