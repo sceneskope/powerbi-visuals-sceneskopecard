@@ -13,7 +13,8 @@ module powerbi.extensibility.visual {
         if (!options.dataViews
             || !options.dataViews[0]
             || !options.dataViews[0].single
-            || !options.dataViews[0].single.value) {
+            || !options.dataViews[0].single
+            || (options.dataViews[0].single === undefined)) {
             return {
                 value: "",
                 label: undefined,
