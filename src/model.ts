@@ -2,32 +2,31 @@ module powerbi.extensibility.visual {
     import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
     import IValueFormatter = powerbi.extensibility.utils.formatting.IValueFormatter;
     export interface ViewModel {
-        value: PrimitiveValue;
+        values: PrimitiveValue[];
         label: string | undefined;
         settings: Settings;
-        formatter: IValueFormatter;
+        formatters: IValueFormatter[];
     }
 
     export function visualTransform(options: VisualUpdateOptions, host: IVisualHost): ViewModel {
         const dataViews = options.dataViews;
         if (!options.dataViews
             || !options.dataViews[0]
-            || !options.dataViews[0].single
-            || !options.dataViews[0].single
-            || (options.dataViews[0].single === undefined)) {
+            || !options.dataViews[0].table
+            || !options.dataViews[0].table.rows
+            || !options.dataViews[0].table.rows[0]) {
             return {
-                value: "",
+                values: [],
                 label: undefined,
                 settings: Settings.getDefault() as Settings,
-                formatter: valueFormatter.create({})
+                formatters: []
             };
         }
 
         const dataView = options.dataViews[0];
+        const table = dataView.table;
+        const columns = table.columns;
         const settings = Settings.parse<Settings>(dataView);
-
-        const objects = dataView.metadata.objects;
-        const value = dataView.single.value;
 
         let label: string | undefined;
         if (settings.categoryLabels.show) {
@@ -35,26 +34,26 @@ module powerbi.extensibility.visual {
                 label = settings.categoryLabels.text;
             } else {
                 label =
-                    dataView.metadata
-                    && dataView.metadata.columns
-                    && dataView.metadata.columns[0]
-                    && dataView.metadata.columns[0].displayName
+                    columns
+                    && columns[0]
+                    && columns[0].displayName
                     || undefined;
             }
         } else {
             label = undefined;
         }
 
-        const column = dataView.metadata.columns[0];
-        const formatter = valueFormatter.create({
-            format: valueFormatter.getFormatStringByColumn(column)
-        });
+        const values = table.rows[0] as PrimitiveValue[];
+        const formatters = columns.map(c =>
+            valueFormatter.create({
+                format: valueFormatter.getFormatStringByColumn(c)
+            }));
 
         return {
             settings: settings,
             label: label,
-            value: value,
-            formatter: formatter
+            values: values,
+            formatters: formatters
         };
 
     }

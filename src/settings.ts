@@ -7,6 +7,11 @@ module powerbi.extensibility.visual {
         Bold = <any>"Bold"
     }
 
+    export enum CategoryPosition {
+        Top = <any>"Top",
+        Bottom = <any>"Bottom"
+    }
+
     export function fontWeightConverter(weight: FontWeight) {
         switch (weight) {
             case FontWeight.Normal: return 400;
@@ -18,7 +23,7 @@ module powerbi.extensibility.visual {
 
     export class ValuesSettings {
         public color = "#ffffff";
-        public fontSize = 12;
+        public fontSize = 20;
         public fontWeight = FontWeight.Bold;
         public displayUnits: number = 0;
         public decimalPlaces: number | null = null;
@@ -28,8 +33,9 @@ module powerbi.extensibility.visual {
         public show = true;
         public text = "";
         public color = "#ffffff";
-        public fontSize = 8;
+        public fontSize = 6;
         public fontWeight = FontWeight.Normal;
+        public position = CategoryPosition.Top;
     }
 
     export class WordWrapSettings {
@@ -38,10 +44,11 @@ module powerbi.extensibility.visual {
 
     export class BehaviorSettings {
         public innerColor = "#22B573";
-        public showBottom = true;
-        public showRight = true;
-        public outerColor = "#1A9D58";
-        public outerWidth = 20;
+        public showLeft = false;
+        public showTop = true;
+        public showBottom = false;
+        public showRight = false;
+        public outerColor = "#3CBD83";
     }
 
     export class Settings extends DataViewObjectsParser {

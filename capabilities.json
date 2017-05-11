@@ -1,18 +1,38 @@
 {
-    "dataRoles": [{
-        "displayName": "Fields",
-        "name": "Values",
-        "kind": "Measure",
-        "description": "The fields to display"
-    }],
-    "dataViewMappings": [{
-        "conditions": [
-            { "Values": { "max": 1 } }
-        ],
-        "single": {
-            "role": "Values"
+    "dataRoles": [
+        {
+            "displayName": "Fields",
+            "name": "Values",
+            "kind": "Measure",
+            "description": "The fields to display"
         }
-    }],
+    ],
+    "dataViewMappings": [
+        {
+            "conditions": [
+                {
+                    "Values": {
+                        "min": 1
+                    }
+                }
+            ],
+            "table": {
+                "rowCount": {
+                    "preferred": {
+                        "max": 1
+                    },
+                     "supported": {
+                         "max": 1
+                     }
+                },
+                "rows": {
+                    "for": {
+                        "in": "Values"
+                    }
+                }
+            }
+        }
+    ],
     "objects": {
         "values": {
             "displayName": "Values",
@@ -26,7 +46,6 @@
                             }
                         }
                     }
-
                 },
                 "fontSize": {
                     "displayName": "Font Size",
@@ -40,9 +59,18 @@
                     "displayName": "Font Weight",
                     "type": {
                         "enumeration": [
-                            { "value": "Normal", "displayName": "Normal" },
-                            { "value": "Medium", "displayName": "Medium" },
-                            { "value": "Bold", "displayName": "Bold" }
+                            {
+                                "value": "Normal",
+                                "displayName": "Normal"
+                            },
+                            {
+                                "value": "Medium",
+                                "displayName": "Medium"
+                            },
+                            {
+                                "value": "Bold",
+                                "displayName": "Bold"
+                            }
                         ]
                     }
                 },
@@ -61,7 +89,6 @@
                     },
                     "placeHolderText": "Auto"
                 }
-
             }
         },
         "categoryLabels": {
@@ -101,9 +128,33 @@
                     "displayName": "Font Weight",
                     "type": {
                         "enumeration": [
-                            { "value": "Normal", "displayName": "Normal" },
-                            { "value": "Medium", "displayName": "Medium" },
-                            { "value": "Bold", "displayName": "Bold" }
+                            {
+                                "value": "Normal",
+                                "displayName": "Normal"
+                            },
+                            {
+                                "value": "Medium",
+                                "displayName": "Medium"
+                            },
+                            {
+                                "value": "Bold",
+                                "displayName": "Bold"
+                            }
+                        ]
+                    }
+                },
+                "position": {
+                    "displayName": "Position",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "Top",
+                                "displayName": "Top"
+                            },
+                            {
+                                "value": "Bottom",
+                                "displayName": "Bottom"
+                            }
                         ]
                     }
                 }
@@ -133,6 +184,18 @@
                         }
                     }
                 },
+                "showTop": {
+                    "displayName": "Show top",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showLeft": {
+                    "displayName": "Show left",
+                    "type": {
+                        "bool": true
+                    }
+                },
                 "showBottom": {
                     "displayName": "Show bottom",
                     "type": {
@@ -153,12 +216,6 @@
                                 "color": true
                             }
                         }
-                    }
-                },
-                "outerWidth": {
-                    "displayName": "Outer width",
-                    "type": {
-                        "numeric": true
                     }
                 }
             }

@@ -69,20 +69,27 @@ module powerbi.extensibility.visual {
                     .attr("height", height)
                     .attr("fill", settings.behavior.outerColor);
 
-                const outerWidth = settings.behavior.outerWidth;
-                const coreHeight = settings.behavior.showBottom ? height - outerWidth : height;
-                const coreWidth = settings.behavior.showRight ? width - outerWidth : width;
+                const labelFontSizePixels = PixelConverter.fromPointToPixel(settings.categoryLabels.fontSize);
+                const outerWidth =  3 * labelFontSizePixels;
+                const topHeight = settings.behavior.showTop ? outerWidth : 0;
+                const bottomHeight = settings.behavior.showBottom ? outerWidth : 0;
+                const leftWidth = settings.behavior.showLeft ? outerWidth : 0;
+                const rightWidth = settings.behavior.showRight ? outerWidth : 0;
+                const coreHeight = height - (topHeight + bottomHeight);
+                const coreWidth = width - (leftWidth + rightWidth);
+
                 this.coreBackground
                     .attr("width", coreWidth)
                     .attr("height", coreHeight)
+                    .attr("transform", svgutils.translate(leftWidth, topHeight))
                     .attr("fill", settings.behavior.innerColor);
 
-                const valueData = [viewModel.value];
+                const valueData = viewModel.values;
                 const corePadding = 10;
 
-                const translateX = corePadding;
+                const translateX = leftWidth + corePadding;
                 const valueFontSizePixels = PixelConverter.fromPointToPixel(settings.values.fontSize);
-                const valueTranslateY = corePadding + valueFontSizePixels;
+                const valueTranslateY = topHeight + corePadding + valueFontSizePixels;
 
                 const valueText =
                     this.valueElement
@@ -96,7 +103,8 @@ module powerbi.extensibility.visual {
 
 
                 valueText
-                    .text(viewModel.formatter.format)
+                    .text((value, i) => viewModel.formatters[i].format(value))
+                    .attr("transform", (value, i) => svgutils.translate(0, i * (corePadding + valueFontSizePixels)))
                     .style({
                         "font-size": valueFontSizePixels,
                         "font-weight": fontWeightConverter(settings.values.fontWeight),
@@ -109,8 +117,10 @@ module powerbi.extensibility.visual {
                     .remove();
 
                 const labelData = viewModel.label ? [viewModel.label] : [];
-                const labelFontSizePixels = PixelConverter.fromPointToPixel(settings.categoryLabels.fontSize);
-                const labelTranslateY = coreHeight - labelFontSizePixels;
+                const labelTranslateY = settings.categoryLabels.position === CategoryPosition.Top
+                    ? topHeight - labelFontSizePixels
+                    : height - labelFontSizePixels;
+
                 const labelText =
                     this.labelElement
                         .attr("transform", svgutils.translate(translateX, labelTranslateY))
