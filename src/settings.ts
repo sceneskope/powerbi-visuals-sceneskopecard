@@ -33,7 +33,7 @@ module powerbi.extensibility.visual {
         public show = true;
         public text = "";
         public color = "#ffffff";
-        public fontSize = 6;
+        public fontSize = 12;
         public fontWeight = FontWeight.Normal;
         public position = CategoryPosition.Top;
     }

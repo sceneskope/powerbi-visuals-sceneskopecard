@@ -70,7 +70,7 @@ module powerbi.extensibility.visual {
                     .attr("fill", settings.behavior.outerColor);
 
                 const labelFontSizePixels = PixelConverter.fromPointToPixel(settings.categoryLabels.fontSize);
-                const outerWidth =  3 * labelFontSizePixels;
+                const outerWidth = 2 * labelFontSizePixels;
                 const topHeight = settings.behavior.showTop ? outerWidth : 0;
                 const bottomHeight = settings.behavior.showBottom ? outerWidth : 0;
                 const leftWidth = settings.behavior.showLeft ? outerWidth : 0;
@@ -105,12 +105,11 @@ module powerbi.extensibility.visual {
                 valueText
                     .text((value, i) => viewModel.formatters[i].format(value))
                     .attr("transform", (value, i) => svgutils.translate(0, i * (corePadding + valueFontSizePixels)))
-                    .style({
-                        "font-size": valueFontSizePixels,
-                        "font-weight": fontWeightConverter(settings.values.fontWeight),
-                        "fill": settings.values.color,
-                        "text-anchor": "left"
-                    });
+                    .attr("font-size", valueFontSizePixels)
+                    .attr("font-weight", fontWeightConverter(settings.values.fontWeight))
+                    .attr("fill", settings.values.color)
+                    .attr("text-anchor", "left")
+                    ;
 
                 valueText
                     .exit()
@@ -118,8 +117,8 @@ module powerbi.extensibility.visual {
 
                 const labelData = viewModel.label ? [viewModel.label] : [];
                 const labelTranslateY = settings.categoryLabels.position === CategoryPosition.Top
-                    ? topHeight - labelFontSizePixels
-                    : height - labelFontSizePixels;
+                    ? topHeight - (labelFontSizePixels / 2)
+                    : height - (labelFontSizePixels / 2);
 
                 const labelText =
                     this.labelElement
@@ -133,12 +132,11 @@ module powerbi.extensibility.visual {
 
                 labelText
                     .text(d => d)
-                    .style({
-                        "font-size": labelFontSizePixels,
-                        "font-weight": fontWeightConverter(settings.categoryLabels.fontWeight),
-                        "fill": settings.categoryLabels.color,
-                        "text-anchor": "left"
-                    });
+                    .attr("font-size", labelFontSizePixels)
+                    .attr("font-weight", fontWeightConverter(settings.categoryLabels.fontWeight))
+                    .attr("fill", settings.categoryLabels.color)
+                    .attr("text-anchor", "left")
+                    ;
 
                 labelText
                     .exit()
