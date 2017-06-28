@@ -13,8 +13,8 @@ module powerbi.extensibility.visual {
         if (!options.dataViews
             || !options.dataViews[0]
             || !options.dataViews[0].table
-            || !options.dataViews[0].table.rows
-            || !options.dataViews[0].table.rows[0]) {
+            || !options.dataViews[0].table!.rows
+            || !options.dataViews[0].table!.rows![0]) {
             return {
                 values: [],
                 label: undefined,
@@ -24,7 +24,7 @@ module powerbi.extensibility.visual {
         }
 
         const dataView = options.dataViews[0];
-        const table = dataView.table;
+        const table = dataView.table!;
         const columns = table.columns;
         const settings = Settings.parse<Settings>(dataView);
 
@@ -43,7 +43,7 @@ module powerbi.extensibility.visual {
             label = undefined;
         }
 
-        const values = table.rows[0] as PrimitiveValue[];
+        const values = table.rows![0] as PrimitiveValue[];
         const formatters = columns.map(c =>
             valueFormatter.create({
                 format: valueFormatter.getFormatStringByColumn(c)

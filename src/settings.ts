@@ -22,7 +22,7 @@ module powerbi.extensibility.visual {
     }
 
     export class ValuesSettings {
-        public color = "#ffffff";
+        public color = "#333333";
         public fontSize = 20;
         public fontWeight = FontWeight.Bold;
         public displayUnits: number = 0;
@@ -32,7 +32,7 @@ module powerbi.extensibility.visual {
     export class CategoryLabelsSettings {
         public show = true;
         public text = "";
-        public color = "#ffffff";
+        public color = "#a6a6a6";
         public fontSize = 12;
         public fontWeight = FontWeight.Normal;
         public position = CategoryPosition.Top;
@@ -43,12 +43,12 @@ module powerbi.extensibility.visual {
     }
 
     export class BehaviorSettings {
-        public innerColor = "#22B573";
+        public innerColor = "";
         public showLeft = false;
         public showTop = true;
         public showBottom = false;
         public showRight = false;
-        public outerColor = "#3CBD83";
+        public outerColor = "";
     }
 
     export class Settings extends DataViewObjectsParser {
